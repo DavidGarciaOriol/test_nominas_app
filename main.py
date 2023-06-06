@@ -14,8 +14,10 @@ BASE DE COTIZACIÓN - CC: {nomina1.calcular_base_de_cotizacion_contingencias_com
 BASE DE COTIZACIÓN - CP: {nomina1.calcular_base_de_cotizacion_contingencias_profesionales()} €
 BASE HACIENDA: {nomina1.calcular_base_hacienda()} €
 \n========================================================\n
-DEDUCCIÓN CC: {nomina1.calcular_deducciones_cc()} €
-DEDUCCIÓN FP: {nomina1.calcular_deducciones_fp()} €
-DEDUCCIÓN DP: {nomina1.calcular_deducciones_dp()} €
+DEDUCCIÓN CC: {nomina1.CC}% = {nomina1.calcular_deducciones_cc()} €
+DEDUCCIÓN FP: {nomina1.FP}% = {nomina1.calcular_deducciones_fp()} €
+DEDUCCIÓN DP: {nomina1.DP}% = {nomina1.calcular_deducciones_dp()} €
+\n========================================================\n
+RETENCIÓN IRPF: {nomina1.retencion}% = {nomina1.calcular_retenciones_irpf()}
 \n========================================================\n
 LÍQUIDO A PERCIBIR: {nomina1.calcular_liquido_a_percibir()} €''') 
