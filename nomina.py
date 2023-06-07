@@ -12,10 +12,10 @@ class Nomina:
 
     salario_base = 0
     complementos = {}
-    horas_extra_normales = 0
-    horas_extra_fuerza_mayor = 0
+    horas_extra_normales = 0.0
+    horas_extra_fuerza_mayor = 0.0
 
-    def __init__(self, salario_base:float, complementos:dict, retencion:float, numero_pagas:int, antiguedad:bool, horas_extra_normales:float = 0, horas_extra_fuerza_mayor:float = 0):
+    def __init__(self, salario_base:float, complementos:dict, retencion:float, numero_pagas:int, antiguedad:bool, horas_extra_normales:float = 0.0, horas_extra_fuerza_mayor:float = 0.0):
         self.salario_base = salario_base
         self.complementos = complementos
         self.retencion = retencion
@@ -41,7 +41,7 @@ class Nomina:
         devengo = self.salario_base
         valores_de_complementos = list(self.complementos.values())
         devengo += sum(valores_de_complementos)
-        devengo += self.horas_extra
+        devengo += (self.horas_extra_normales + self.horas_extra_fuerza_mayor)
         
         if self.numero_pagas == 12:
             devengo += self.prorratear_paga_extra()
@@ -82,20 +82,23 @@ class Nomina:
     
     def calcular_deducciones_horas_extra_normales(self):
         resultado_hen = self.horas_extra_normales * self.HEN / 100
+        return resultado_hen
 
     def calcular_deducciones_horas_extra_fuerza_mayor(self):
         resultado_hefm = self.horas_extra_fuerza_mayor * self.HEFM / 100
+        return resultado_hefm
 
     def calcular_retenciones_irpf(self):
         resultado_retenciones = self.calcular_devengo() * self.retencion / 100
         return resultado_retenciones
 
     def calcular_total_deducciones(self):
-        total_deducciones = (self.calcular_deducciones_cc() 
-        + self.calcular_deducciones_fp() 
-        + self.calcular_deducciones_dp() 
-        + self.calcular_deducciones_horas_extra_normales() 
-        + self.calcular_deducciones_horas_extra_fuerza_mayor())
+        total_deducciones = 0
+        total_deducciones += self.calcular_deducciones_cc() 
+        total_deducciones += self.calcular_deducciones_fp() 
+        total_deducciones += self.calcular_deducciones_dp() 
+        total_deducciones += self.calcular_deducciones_horas_extra_normales() 
+        total_deducciones += self.calcular_deducciones_horas_extra_fuerza_mayor()
 
         return total_deducciones
     

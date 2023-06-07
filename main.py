@@ -1,6 +1,6 @@
 import nomina
 
-nomina1 = nomina.Nomina(salario_base=3000, complementos={"turnicidad":90, "antigüedad":30, "peligrosidad":100}, retencion=6, numero_pagas=14, antiguedad=True)
+nomina1 = nomina.Nomina(salario_base=1400, complementos={"turnicidad":40, "antigüedad":30}, retencion=3, numero_pagas=14, antiguedad=True, horas_extra_normales=60)
 
 
 def mostrar_nomina(nomina:nomina.Nomina):
@@ -22,9 +22,13 @@ def mostrar_nomina(nomina:nomina.Nomina):
     DEDUCCIÓN CC: {nomina.CC}% = {nomina.calcular_deducciones_cc()} €
     DEDUCCIÓN FP: {nomina.FP}% = {nomina.calcular_deducciones_fp()} €
     DEDUCCIÓN DP: {nomina.DP}% = {nomina.calcular_deducciones_dp()} €
+    DEDUCCIÓN HEN: {nomina.HEN}% = {nomina.calcular_deducciones_horas_extra_normales()} €
+    DEDUCCIÓN HEFM: {nomina.HEFM}% = {nomina.calcular_deducciones_horas_extra_fuerza_mayor()} €
     \n========================================================\n
     RETENCIÓN IRPF: {nomina.retencion}% = {nomina.calcular_retenciones_irpf()}
     \n========================================================\n
     LÍQUIDO A PERCIBIR: {nomina.calcular_liquido_a_percibir()} €''')
 
     return
+
+mostrar_nomina(nomina1)
