@@ -2,22 +2,28 @@ import nomina
 
 nomina1 = nomina.Nomina(salario_base=3000, complementos={"turnicidad":90, "antigüedad":30, "peligrosidad":100}, retencion=6, numero_pagas=14, antiguedad=True)
 
-print(f'''
-SALARIO BASE: {nomina1.salario_base} €
-COMPLEMENTOS: {list(nomina1.complementos.items())}
-DEVENGO: {nomina1.calcular_devengo()} €
-\n========================================================\n
-ANTIGÜEDAD EN PRORRATEO PAGA EXTRA? -> {nomina1.antiguedad}
-PRORRATEO PAGA EXTRA: {nomina1.prorratear_paga_extra()} €
-\n========================================================\n
-BASE DE COTIZACIÓN - CC: {nomina1.calcular_base_de_cotizacion_contingencias_comunes()} €
-BASE DE COTIZACIÓN - CP: {nomina1.calcular_base_de_cotizacion_contingencias_profesionales()} €
-BASE HACIENDA: {nomina1.calcular_base_hacienda()} €
-\n========================================================\n
-DEDUCCIÓN CC: {nomina1.CC}% = {nomina1.calcular_deducciones_cc()} €
-DEDUCCIÓN FP: {nomina1.FP}% = {nomina1.calcular_deducciones_fp()} €
-DEDUCCIÓN DP: {nomina1.DP}% = {nomina1.calcular_deducciones_dp()} €
-\n========================================================\n
-RETENCIÓN IRPF: {nomina1.retencion}% = {nomina1.calcular_retenciones_irpf()}
-\n========================================================\n
-LÍQUIDO A PERCIBIR: {nomina1.calcular_liquido_a_percibir()} €''') 
+
+def mostrar_nomina(nomina:nomina.Nomina):
+
+    print(f'''
+    SALARIO BASE: {nomina.salario_base} €
+    COMPLEMENTOS: {list(nomina.complementos.items())}
+    DEVENGO: {nomina.calcular_devengo()} €
+    \n========================================================\n
+    ANTIGÜEDAD EN PRORRATEO PAGA EXTRA? -> {nomina.antiguedad}
+    PRORRATEO PAGA EXTRA: {nomina.prorratear_paga_extra()} €
+    \n========================================================\n
+    BASE DE COTIZACIÓN - CC: {nomina.calcular_base_de_cotizacion_contingencias_comunes()} €
+    BASE DE COTIZACIÓN - CP: {nomina.calcular_base_de_cotizacion_contingencias_profesionales()} €
+    BASE HACIENDA: {nomina.calcular_base_hacienda()} €
+    \n========================================================\n
+    DEDUCCIÓN CC: {nomina.CC}% = {nomina.calcular_deducciones_cc()} €
+    DEDUCCIÓN FP: {nomina.FP}% = {nomina.calcular_deducciones_fp()} €
+    DEDUCCIÓN DP: {nomina.DP}% = {nomina.calcular_deducciones_dp()} €
+    \n========================================================\n
+    RETENCIÓN IRPF: {nomina.retencion}% = {nomina.calcular_retenciones_irpf()}
+    \n========================================================\n
+    LÍQUIDO A PERCIBIR: {nomina.calcular_liquido_a_percibir()} €''')
+
+    return
+
