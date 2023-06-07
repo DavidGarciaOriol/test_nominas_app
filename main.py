@@ -8,6 +8,8 @@ def mostrar_nomina(nomina:nomina.Nomina):
     print(f'''
     SALARIO BASE: {nomina.salario_base} €
     COMPLEMENTOS: {list(nomina.complementos.items())}
+    HORAS EXTRA NORMALES: {nomina.horas_extra_normales} €
+    HORAS EXTRA FUERZA MAYOR: {nomina.horas_extra_fuerza_mayor} €
     DEVENGO: {nomina.calcular_devengo()} €
     \n========================================================\n
     ANTIGÜEDAD EN PRORRATEO PAGA EXTRA? -> {nomina.antiguedad}
@@ -26,4 +28,3 @@ def mostrar_nomina(nomina:nomina.Nomina):
     LÍQUIDO A PERCIBIR: {nomina.calcular_liquido_a_percibir()} €''')
 
     return
-

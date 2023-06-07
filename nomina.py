@@ -3,6 +3,8 @@ class Nomina:
     CC = 4.70 # Contingencias Comunes
     FP = 0.10 # Formación Profesional
     DP = 1.55 # Desempleo
+    HEN = 4.70
+    HEFM = 2
 
     retencion = 0
     numero_pagas = 14
@@ -10,13 +12,17 @@ class Nomina:
 
     salario_base = 0
     complementos = {}
+    horas_extra_normales = 0
+    horas_extra_fuerza_mayor = 0
 
-    def __init__(self, salario_base:float, complementos:dict, retencion:float, numero_pagas:int, antiguedad:bool=False):
+    def __init__(self, salario_base:float, complementos:dict, retencion:float, numero_pagas:int, antiguedad:bool, horas_extra_normales:float = 0, horas_extra_fuerza_mayor:float = 0):
         self.salario_base = salario_base
         self.complementos = complementos
         self.retencion = retencion
         self.numero_pagas = numero_pagas
         self.antiguedad = antiguedad
+        self.horas_extra_normales = horas_extra_normales
+        self.horas_extra_fuerza_mayor = horas_extra_fuerza_mayor
 
     def existe_complemento_antiguedad(self):
         return self.complementos.get("antigüedad") is not None
@@ -35,6 +41,7 @@ class Nomina:
         devengo = self.salario_base
         valores_de_complementos = list(self.complementos.values())
         devengo += sum(valores_de_complementos)
+        devengo += self.horas_extra
         
         if self.numero_pagas == 12:
             devengo += self.prorratear_paga_extra()
@@ -48,16 +55,13 @@ class Nomina:
         elif self.numero_pagas == 12:
             base_de_cotizacion_cc = self.calcular_devengo()
 
+        base_de_cotizacion_cc -= (self.horas_extra_normales - self.horas_extra_fuerza_mayor)
+
         return base_de_cotizacion_cc
     
     def calcular_base_de_cotizacion_contingencias_profesionales(self):
-        base_de_cotizacion_cp = 0
 
-        ## TO - DO ##
-
-        ## MEANWHILE ##
-
-        base_de_cotizacion_cp = self.calcular_base_de_cotizacion_contingencias_comunes()
+        base_de_cotizacion_cp = self.calcular_base_de_cotizacion_contingencias_comunes() + self.horas_extra_normales + self.horas_extra_fuerza_mayor
         return base_de_cotizacion_cp
     
     def calcular_base_hacienda(self):
@@ -76,12 +80,23 @@ class Nomina:
         resultado_dp = self.calcular_base_de_cotizacion_contingencias_profesionales() * self.DP / 100
         return resultado_dp
     
+    def calcular_deducciones_horas_extra_normales(self):
+        resultado_hen = self.horas_extra_normales * self.HEN / 100
+
+    def calcular_deducciones_horas_extra_fuerza_mayor(self):
+        resultado_hefm = self.horas_extra_fuerza_mayor * self.HEFM / 100
+
     def calcular_retenciones_irpf(self):
         resultado_retenciones = self.calcular_devengo() * self.retencion / 100
         return resultado_retenciones
 
     def calcular_total_deducciones(self):
-        total_deducciones = self.calcular_deducciones_cc() + self.calcular_deducciones_fp() + self.calcular_deducciones_dp()
+        total_deducciones = (self.calcular_deducciones_cc() 
+        + self.calcular_deducciones_fp() 
+        + self.calcular_deducciones_dp() 
+        + self.calcular_deducciones_horas_extra_normales() 
+        + self.calcular_deducciones_horas_extra_fuerza_mayor())
+
         return total_deducciones
     
     def calcular_liquido_a_percibir(self):
