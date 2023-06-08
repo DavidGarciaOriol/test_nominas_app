@@ -106,4 +106,31 @@ class Nomina:
         liquido_a_percibir = self.calcular_devengo() - (self.calcular_total_deducciones() + self.calcular_retenciones_irpf())
         return liquido_a_percibir
 
-    
+    def __str__(self):
+        
+        str = f'''
+            SALARIO BASE: {self.salario_base} €
+            COMPLEMENTOS: {list(self.complementos.items())}
+            HORAS EXTRA NORMALES: {self.horas_extra_normales} €
+            HORAS EXTRA FUERZA MAYOR: {self.horas_extra_fuerza_mayor} €
+            DEVENGO: {self.calcular_devengo()} €
+            \n========================================================\n
+            ANTIGÜEDAD EN PRORRATEO PAGA EXTRA? -> {self.antiguedad}
+            PRORRATEO PAGA EXTRA: {self.prorratear_paga_extra()} €
+            \n========================================================\n
+            BASE DE COTIZACIÓN - CC: {self.calcular_base_de_cotizacion_contingencias_comunes()} €
+            BASE DE COTIZACIÓN - CP: {self.calcular_base_de_cotizacion_contingencias_profesionales()} €
+            BASE HACIENDA: {self.calcular_base_hacienda()} €
+            \n========================================================\n
+            DEDUCCIÓN CC: {self.CC}% = {self.calcular_deducciones_cc()} €
+            DEDUCCIÓN FP: {self.FP}% = {self.calcular_deducciones_fp()} €
+            DEDUCCIÓN DP: {self.DP}% = {self.calcular_deducciones_dp()} €
+            DEDUCCIÓN HEN: {self.HEN}% = {self.calcular_deducciones_horas_extra_normales()} €
+            DEDUCCIÓN HEFM: {self.HEFM}% = {self.calcular_deducciones_horas_extra_fuerza_mayor()} €
+            \n========================================================\n
+            RETENCIÓN IRPF: {self.retencion}% = {self.calcular_retenciones_irpf()}
+            \n========================================================\n
+            LÍQUIDO A PERCIBIR: {self.calcular_liquido_a_percibir()} €'''
+        
+        return str
+        
