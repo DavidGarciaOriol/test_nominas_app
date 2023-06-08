@@ -12,8 +12,8 @@ class Nomina:
 
     salario_base = 0
     complementos = {}
-    horas_extra_normales = 0.0
-    horas_extra_fuerza_mayor = 0.0
+    horas_extra_normales = 0
+    horas_extra_fuerza_mayor = 0
 
     def __init__(self, salario_base:float, complementos:dict, retencion:float, numero_pagas:int, antiguedad:bool, horas_extra_normales:float = 0.0, horas_extra_fuerza_mayor:float = 0.0):
         self.salario_base = salario_base
