@@ -113,24 +113,24 @@ class Nomina:
             COMPLEMENTOS: {list(self.complementos.items())}
             HORAS EXTRA NORMALES: {self.horas_extra_normales} €
             HORAS EXTRA FUERZA MAYOR: {self.horas_extra_fuerza_mayor} €
-            DEVENGO: {self.calcular_devengo()} €
+            DEVENGO: {round(self.calcular_devengo(), 2)} €
             \n========================================================\n
             ANTIGÜEDAD EN PRORRATEO PAGA EXTRA? -> {self.antiguedad}
-            PRORRATEO PAGA EXTRA: {self.prorratear_paga_extra()} €
+            PRORRATEO PAGA EXTRA: {round(self.prorratear_paga_extra(), 2)} €
             \n========================================================\n
-            BASE DE COTIZACIÓN - CC: {self.calcular_base_de_cotizacion_contingencias_comunes()} €
-            BASE DE COTIZACIÓN - CP: {self.calcular_base_de_cotizacion_contingencias_profesionales()} €
-            BASE HACIENDA: {self.calcular_base_hacienda()} €
+            BASE DE COTIZACIÓN - CC: {round(self.calcular_base_de_cotizacion_contingencias_comunes(), 2)} €
+            BASE DE COTIZACIÓN - CP: {round(self.calcular_base_de_cotizacion_contingencias_profesionales(), 2)} €
+            BASE HACIENDA: {round(self.calcular_base_hacienda(), 2)} €
             \n========================================================\n
-            DEDUCCIÓN CC: {self.CC}% = {self.calcular_deducciones_cc()} €
-            DEDUCCIÓN FP: {self.FP}% = {self.calcular_deducciones_fp()} €
-            DEDUCCIÓN DP: {self.DP}% = {self.calcular_deducciones_dp()} €
-            DEDUCCIÓN HEN: {self.HEN}% = {self.calcular_deducciones_horas_extra_normales()} €
-            DEDUCCIÓN HEFM: {self.HEFM}% = {self.calcular_deducciones_horas_extra_fuerza_mayor()} €
+            DEDUCCIÓN CC: {self.CC}% = {round(self.calcular_deducciones_cc(), 2)} €
+            DEDUCCIÓN FP: {self.FP}% = {round(self.calcular_deducciones_fp(), 2)} €
+            DEDUCCIÓN DP: {self.DP}% = {round(self.calcular_deducciones_dp(), 2)} €
+            DEDUCCIÓN HEN: {self.HEN}% = {round(self.calcular_deducciones_horas_extra_normales(), 2)} €
+            DEDUCCIÓN HEFM: {self.HEFM}% = {round(self.calcular_deducciones_horas_extra_fuerza_mayor(), 2)} €
             \n========================================================\n
-            RETENCIÓN IRPF: {self.retencion}% = {self.calcular_retenciones_irpf()}
+            RETENCIÓN IRPF: {self.retencion}% = {round(self.calcular_retenciones_irpf(),2)}
             \n========================================================\n
-            LÍQUIDO A PERCIBIR: {self.calcular_liquido_a_percibir()} €'''
+            LÍQUIDO A PERCIBIR: {round(self.calcular_liquido_a_percibir(),2)} €'''
         
         return str
         
