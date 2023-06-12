@@ -1,6 +1,6 @@
 import nomina
 
-nomina1 = nomina.Nomina(salario_base=1400, complementos={"turnicidad":40, "antigüedad":30}, retencion=3, numero_pagas=14, antiguedad=True, horas_extra_normales=60)
+nomina1 = nomina.Nomina(salario_base=2800, complementos={"peligrosidad":50, "antigüedad":70}, retencion=4, numero_pagas=14, antiguedad=False, horas_extra_normales=100)
 
 
 def mostrar_nomina(nomina:nomina.Nomina):
