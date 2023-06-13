@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Nómina</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Calculador de Nóminas</h1>
+    <form id="nomina-form">
+        <label for="salario-base">Salario Base:</label>
+        <input type="number" id="salario-base" name="salario-base" required>
+        <br>
+        <label for="dias-cotizados">Días Cotizados:</label>
+        <input type="number" id="dias-cotizados" name="dias-cotizados" required>
+        <br>
+        <label for="complementos-container">Complementos:</label>
+        <div id="complementos-container">
+            <div class="complemento-input">
+                <input type="text" name="complemento-nombre[]" placeholder="Nombre del complemento" required>
+                <input type="number" class="complemento-valor" name="complemento-valor[]" placeholder="Valor del complemento" required>
+            </div>
+        </div>
+        <button type="button" id="agregar-complemento">Agregar Complemento</button>
+        
+        <br>
+        <div class="antiguedad-ppe-cb-container">
+            <input type="checkbox" id="antiguedad-ppe" name="antiguedad-ppe" checked>
+            <label for="antiguedad-ppe">¿Incluir la antigüedad en el Prorrateo de la Paga Extra?</label>
+        </div>
+        <br>
+
+        <label for="retencion-irpf">Retención IRPF:</label>
+            <div class="input-group">
+                <input type="number" id="retencion-irpf" name="retencion-irpf" min="0" max="100" required>
+                <span class="input-group-addon">%</span>
+            </div>
+        
+        <br>
+
+        <input type="submit" value="Calcular Líquido Total">
+    </form>
+
+    <div id="desglose-container">
+        
+    </div>
+
+    <div class="placeholder">
+        
+    </div>
+    <footer>
+        <p>David García oriol &copy; 2023. Con la ayuda de Chat GPT</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

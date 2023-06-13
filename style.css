@@ -1,0 +1,150 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    padding-right: 40px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#desglose-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+#desglose-container p {
+    margin-bottom: 10px;
+}
+
+#desglose-container strong {
+    font-weight: bold;
+}
+
+.antiguedad-ppe-cb-container {
+    display: flex;
+    align-items: baseline;
+}
+
+.antiguedad-ppe-cb-container input[type="checkbox"] {
+    margin: 5px;
+}
+
+.antiguedad-ppe-cb-container label{
+    font-size: small;
+
+}
+
+.complemento-input {
+    display: flex;
+    align-items: baseline;
+}
+
+.complemento-input .complemento-valor {
+    max-width: 50px;
+    margin-left: 10px;
+}
+
+button[type="button"]{
+    background-color: #cfd147;
+    color: #000000;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+button[type="button"]:hover {
+    background-color: #e7b323;
+}
+
+.delete-button {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: medium;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+  
+.input-group input {
+    padding-right: 20px;
+    margin-right: 5px;
+    max-width: 50px;
+}
+  
+.input-addon {
+    position: relative;
+    margin-left: -20px;
+    padding: 5px;
+    background-color: #ffffff;
+    border: 1px solid #993434;
+}
+
+.placeholder{
+    flex-grow: 1;
+}
+ 
+footer {
+    background-color: #fabada;
+    color: #2b2b2b;
+    padding: 12px;
+    text-align: center;
+    font-size: large;
+}
