@@ -55,7 +55,7 @@ class Nomina:
         elif self.numero_pagas == 12:
             base_de_cotizacion_cc = self.calcular_devengo()
 
-        base_de_cotizacion_cc -= (self.horas_extra_normales - self.horas_extra_fuerza_mayor)
+        base_de_cotizacion_cc -= (self.horas_extra_normales + self.horas_extra_fuerza_mayor)
 
         return base_de_cotizacion_cc
     
@@ -128,7 +128,7 @@ class Nomina:
             DEDUCCIÓN HEN: {self.HEN}% = {round(self.calcular_deducciones_horas_extra_normales(), 2)} €
             DEDUCCIÓN HEFM: {self.HEFM}% = {round(self.calcular_deducciones_horas_extra_fuerza_mayor(), 2)} €
             \n========================================================\n
-            RETENCIÓN IRPF: {self.retencion}% = {round(self.calcular_retenciones_irpf(),2)}
+            RETENCIÓN IRPF: {self.retencion}% = {round(self.calcular_retenciones_irpf(),2)} €
             \n========================================================\n
             LÍQUIDO A PERCIBIR: {round(self.calcular_liquido_a_percibir(),2)} €'''
         
