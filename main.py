@@ -1,5 +1,5 @@
 from nomina import Nomina
 
-nomina1 = Nomina(salario_base=2000, complementos={"productividad":80}, retencion=2, numero_pagas=14, antiguedad=False, horas_extra_normales=0, horas_extra_fuerza_mayor=0, dias_cotizados=15)
+nomina1 = Nomina(salario_base=2000, complementos={"productividad":10}, retencion=2, numero_pagas=14, antiguedad=False, horas_extra_normales=0, horas_extra_fuerza_mayor=0, dias_cotizados=15)
 
 print(nomina1)

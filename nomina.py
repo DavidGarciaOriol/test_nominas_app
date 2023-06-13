@@ -35,7 +35,7 @@ class Nomina:
     def prorratear_paga_extra(self):
         paga_extra_prorrateada = 0
         calc = 0
-        calc += self.salario_base
+        calc += self.normalizar_salario_base_a_dias_cotizados()
         if self.existe_complemento_antiguedad() and self.antiguedad == True:
             calc += self.complementos['antigüedad']
         
@@ -50,7 +50,7 @@ class Nomina:
         valores_de_complementos = list(self.complementos.values())
         valores_de_complementos_normalizados = []
         for value in valores_de_complementos:
-            valores_de_complementos_normalizados.append(valores_de_complementos[value]/self.MENSUALIDAD*self.dias_cotizados)
+            valores_de_complementos_normalizados.append(value/self.MENSUALIDAD*self.dias_cotizados)
         return valores_de_complementos_normalizados
 
     def calcular_devengo(self):
