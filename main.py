@@ -1,6 +1,10 @@
 from nomina import Nomina
 
+<<<<<<< HEAD
 nomina1 = Nomina(salario_base=2000, complementos={"productividad":10}, retencion=2, numero_pagas=14, antiguedad=False, horas_extra_normales=0, horas_extra_fuerza_mayor=0)
 
+=======
+nomina1 = Nomina(salario_base=2000, complementos={"productividad":10}, retencion=2, numero_pagas=14, antiguedad=False, horas_extra_normales=0, horas_extra_fuerza_mayor=0, dias_cotizados=15)
+>>>>>>> dev
 
 print(nomina1)

@@ -5,7 +5,9 @@ class Nomina:
     DP = 1.55 # Desempleo
     HEN = 4.70
     HEFM = 2
+    MENSUALIDAD = 30
 
+    dias_cotizados = 0
     retencion = 0
     numero_pagas = 14
     antiguedad = False
@@ -15,7 +17,9 @@ class Nomina:
     horas_extra_normales = 0
     horas_extra_fuerza_mayor = 0
 
-    def __init__(self, salario_base:float, complementos:dict, retencion:float, numero_pagas:int, antiguedad:bool, horas_extra_normales:float = 0.0, horas_extra_fuerza_mayor:float = 0.0):
+    ### MÓDULO DE PAGA MENSUAL COMÚN ###
+
+    def __init__(self, salario_base:float, complementos:dict, retencion:float, numero_pagas:int, antiguedad:bool, horas_extra_normales:float = 0.0, horas_extra_fuerza_mayor:float = 0.0, dias_cotizados:int = 30):
         self.salario_base = salario_base
         self.complementos = complementos
         self.retencion = retencion
@@ -23,6 +27,7 @@ class Nomina:
         self.antiguedad = antiguedad
         self.horas_extra_normales = horas_extra_normales
         self.horas_extra_fuerza_mayor = horas_extra_fuerza_mayor
+        self.dias_cotizados = dias_cotizados
 
     def existe_complemento_antiguedad(self):
         return self.complementos.get("antigüedad") is not None
@@ -30,21 +35,33 @@ class Nomina:
     def prorratear_paga_extra(self):
         paga_extra_prorrateada = 0
         calc = 0
-        calc += self.salario_base
+        calc += self.normalizar_salario_base_a_dias_cotizados()
         if self.existe_complemento_antiguedad() and self.antiguedad == True:
             calc += self.complementos['antigüedad']
         
         paga_extra_prorrateada = calc/6
         return paga_extra_prorrateada
     
-    def calcular_devengo(self):
-        devengo = self.salario_base
+    def normalizar_salario_base_a_dias_cotizados(self):
+        normalizacion = self.salario_base/self.MENSUALIDAD * self.dias_cotizados
+        return normalizacion
+    
+    def normalizar_complementos_a_dias_cotizados(self):
         valores_de_complementos = list(self.complementos.values())
+        valores_de_complementos_normalizados = []
+        for value in valores_de_complementos:
+            valores_de_complementos_normalizados.append(value/self.MENSUALIDAD*self.dias_cotizados)
+        return valores_de_complementos_normalizados
+
+    def calcular_devengo(self):
+        devengo = self.normalizar_salario_base_a_dias_cotizados()
+        valores_de_complementos = self.normalizar_complementos_a_dias_cotizados()
         devengo += sum(valores_de_complementos)
         devengo += (self.horas_extra_normales + self.horas_extra_fuerza_mayor)
         
         if self.numero_pagas == 12:
             devengo += self.prorratear_paga_extra()
+
         
         return devengo
         
@@ -55,7 +72,7 @@ class Nomina:
         elif self.numero_pagas == 12:
             base_de_cotizacion_cc = self.calcular_devengo()
 
-        base_de_cotizacion_cc -= (self.horas_extra_normales - self.horas_extra_fuerza_mayor)
+        base_de_cotizacion_cc -= (self.horas_extra_normales + self.horas_extra_fuerza_mayor)
 
         return base_de_cotizacion_cc
     
@@ -113,24 +130,24 @@ class Nomina:
             COMPLEMENTOS: {list(self.complementos.items())}
             HORAS EXTRA NORMALES: {self.horas_extra_normales} €
             HORAS EXTRA FUERZA MAYOR: {self.horas_extra_fuerza_mayor} €
-            DEVENGO: {self.calcular_devengo()} €
+            DEVENGO: {round(self.calcular_devengo(), 2)} €
             \n========================================================\n
             ANTIGÜEDAD EN PRORRATEO PAGA EXTRA? -> {self.antiguedad}
-            PRORRATEO PAGA EXTRA: {self.prorratear_paga_extra()} €
+            PRORRATEO PAGA EXTRA: {round(self.prorratear_paga_extra(), 2)} €
             \n========================================================\n
-            BASE DE COTIZACIÓN - CC: {self.calcular_base_de_cotizacion_contingencias_comunes()} €
-            BASE DE COTIZACIÓN - CP: {self.calcular_base_de_cotizacion_contingencias_profesionales()} €
-            BASE HACIENDA: {self.calcular_base_hacienda()} €
+            BASE DE COTIZACIÓN - CC: {round(self.calcular_base_de_cotizacion_contingencias_comunes(), 2)} €
+            BASE DE COTIZACIÓN - CP: {round(self.calcular_base_de_cotizacion_contingencias_profesionales(), 2)} €
+            BASE HACIENDA: {round(self.calcular_base_hacienda(), 2)} €
             \n========================================================\n
-            DEDUCCIÓN CC: {self.CC}% = {self.calcular_deducciones_cc()} €
-            DEDUCCIÓN FP: {self.FP}% = {self.calcular_deducciones_fp()} €
-            DEDUCCIÓN DP: {self.DP}% = {self.calcular_deducciones_dp()} €
-            DEDUCCIÓN HEN: {self.HEN}% = {self.calcular_deducciones_horas_extra_normales()} €
-            DEDUCCIÓN HEFM: {self.HEFM}% = {self.calcular_deducciones_horas_extra_fuerza_mayor()} €
+            DEDUCCIÓN CC: {self.CC}% = {round(self.calcular_deducciones_cc(), 2)} €
+            DEDUCCIÓN FP: {self.FP}% = {round(self.calcular_deducciones_fp(), 2)} €
+            DEDUCCIÓN DP: {self.DP}% = {round(self.calcular_deducciones_dp(), 2)} €
+            DEDUCCIÓN HEN: {self.HEN}% = {round(self.calcular_deducciones_horas_extra_normales(), 2)} €
+            DEDUCCIÓN HEFM: {self.HEFM}% = {round(self.calcular_deducciones_horas_extra_fuerza_mayor(), 2)} €
             \n========================================================\n
-            RETENCIÓN IRPF: {self.retencion}% = {self.calcular_retenciones_irpf()}
+            RETENCIÓN IRPF: {self.retencion}% = {round(self.calcular_retenciones_irpf(),2)} €
             \n========================================================\n
-            LÍQUIDO A PERCIBIR: {self.calcular_liquido_a_percibir()} €'''
+            LÍQUIDO A PERCIBIR: {round(self.calcular_liquido_a_percibir(),2)} €'''
         
         return str
         
