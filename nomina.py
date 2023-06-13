@@ -5,7 +5,9 @@ class Nomina:
     DP = 1.55 # Desempleo
     HEN = 4.70
     HEFM = 2
+    MENSUALIDAD = 30
 
+    dias_cotizados = 0
     retencion = 0
     numero_pagas = 14
     antiguedad = False
@@ -15,7 +17,9 @@ class Nomina:
     horas_extra_normales = 0
     horas_extra_fuerza_mayor = 0
 
-    def __init__(self, salario_base:float, complementos:dict, retencion:float, numero_pagas:int, antiguedad:bool, horas_extra_normales:float = 0.0, horas_extra_fuerza_mayor:float = 0.0):
+    ### MÓDULO DE PAGA MENSUAL COMÚN ###
+
+    def __init__(self, salario_base:float, complementos:dict, retencion:float, numero_pagas:int, antiguedad:bool, horas_extra_normales:float = 0.0, horas_extra_fuerza_mayor:float = 0.0, dias_cotizados:int = 30):
         self.salario_base = salario_base
         self.complementos = complementos
         self.retencion = retencion
@@ -23,6 +27,7 @@ class Nomina:
         self.antiguedad = antiguedad
         self.horas_extra_normales = horas_extra_normales
         self.horas_extra_fuerza_mayor = horas_extra_fuerza_mayor
+        self.dias_cotizados = dias_cotizados
 
     def existe_complemento_antiguedad(self):
         return self.complementos.get("antigüedad") is not None
@@ -37,14 +42,26 @@ class Nomina:
         paga_extra_prorrateada = calc/6
         return paga_extra_prorrateada
     
-    def calcular_devengo(self):
-        devengo = self.salario_base
+    def normalizar_salario_base_a_dias_cotizados(self):
+        normalizacion = self.salario_base/self.MENSUALIDAD * self.dias_cotizados
+        return normalizacion
+    
+    def normalizar_complementos_a_dias_cotizados(self):
         valores_de_complementos = list(self.complementos.values())
+        valores_de_complementos_normalizados = []
+        for value in valores_de_complementos:
+            valores_de_complementos_normalizados.add(valores_de_complementos[value]/self.MENSUALIDAD*self.dias_cotizados)
+        return valores_de_complementos_normalizados
+
+    def calcular_devengo(self):
+        devengo = self.normalizar_salario_base_a_dias_cotizados()
+        valores_de_complementos = self.normalizar_complementos_a_dias_cotizados()
         devengo += sum(valores_de_complementos)
         devengo += (self.horas_extra_normales + self.horas_extra_fuerza_mayor)
         
         if self.numero_pagas == 12:
             devengo += self.prorratear_paga_extra()
+
         
         return devengo
         
