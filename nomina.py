@@ -50,7 +50,7 @@ class Nomina:
         valores_de_complementos = list(self.complementos.values())
         valores_de_complementos_normalizados = []
         for value in valores_de_complementos:
-            valores_de_complementos_normalizados.add(valores_de_complementos[value]/self.MENSUALIDAD*self.dias_cotizados)
+            valores_de_complementos_normalizados.append(valores_de_complementos[value]/self.MENSUALIDAD*self.dias_cotizados)
         return valores_de_complementos_normalizados
 
     def calcular_devengo(self):
