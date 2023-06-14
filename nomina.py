@@ -74,6 +74,9 @@ class Nomina:
 
         base_de_cotizacion_cc -= (self.horas_extra_normales + self.horas_extra_fuerza_mayor)
 
+        if base_de_cotizacion_cc > 4139.40:
+            base_de_cotizacion_cc = 4139.40
+
         return base_de_cotizacion_cc
     
     def calcular_base_de_cotizacion_contingencias_profesionales(self):
